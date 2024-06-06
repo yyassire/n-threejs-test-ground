@@ -1,0 +1,1 @@
+# learn about the camera bosition and if i must change where it looks when i change the position
