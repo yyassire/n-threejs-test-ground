@@ -14,7 +14,8 @@ class BasicWorldDemo {
     this._threejs.shadowMap.enabled = true;
     // n
     this._threejs.shadowMap.type = THREE.PCFSoftShadowMap;
-    this._threejs.setPixelRatio(window.devicePixelRatio);
+    this._threejs.setPixelRatio(Math.min(window.devicePixelRatio,2));
+    // this._threejs.setPixelRatio(window.devicePixelRatio);
     this._threejs.setSize(window.innerWidth, window.innerHeight);
 
     document.body.appendChild(this._threejs.domElement);
@@ -22,7 +23,9 @@ class BasicWorldDemo {
     window.addEventListener('resize', () => {
       this._OnWindowResize();
     }, false);
-
+    window.addEventListener("dblclick",()=>{
+     this._OnDblclick()
+    })
     const fov = 60;
     const aspect = 1920 / 1080;
     const near = 1.0;
@@ -122,6 +125,14 @@ class BasicWorldDemo {
     this._camera.aspect = window.innerWidth / window.innerHeight;
     this._camera.updateProjectionMatrix();
     this._threejs.setSize(window.innerWidth, window.innerHeight);
+    this._threejs.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  }
+  _OnDblclick(){
+    if(!document.fullscreenElement){
+      this._threejs.domElement.requestFullscreen()
+    }else{
+      document.exitFullscreen()
+    }
   }
 
   _RAF() {
